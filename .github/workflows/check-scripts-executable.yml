@@ -1,0 +1,23 @@
+---
+name: Check scripts executable
+
+on:
+  pull_request:
+      branches:
+        - current
+        - sagitta
+        - equuleus
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  check-scripts-executable:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check scripts executable
+      run: |
+        find packages/ -type f -name '*.py' -or -name '*.sh' -not -executable -print -exec false {} + || sh -c 'echo "Found files that are not executable! Add permissions." && exit 1'
+      shell: bash
