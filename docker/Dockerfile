@@ -102,6 +102,7 @@ RUN apt-get update && apt-get install -y \
       python3-flake8 \
       python3-autopep8 \
       python3-tomli \
+      python3-pyroute2 \
       yq \
       debootstrap \
       live-build \
@@ -176,6 +177,19 @@ RUN apt-get update && apt-get install -y \
 RUN wget -O /tmp/open-vmdk-master.zip https://github.com/vmware/open-vmdk/archive/master.zip && \
     unzip -d /tmp/ /tmp/open-vmdk-master.zip && \
     cd /tmp/open-vmdk-master/ && make && make install
+
+# Install mac-telnet
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    autopoint \
+    gcc \
+    automake \
+    make \
+    autoconf \
+    libssl-dev
+RUN wget http://github.com/haakonnessjoen/MAC-Telnet/tarball/master -O /tmp/mactelnet.tar.gz && \
+    tar -zxvf /tmp/mactelnet.tar.gz -C /tmp/ && \
+    cd /tmp/haakonness*/ && ./autogen.sh && make all install
 
 #
 # live-build: building in docker fails with mounting /proc | /sys
