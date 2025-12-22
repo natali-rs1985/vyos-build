@@ -7,8 +7,10 @@ packer_cache/*
 key/*
 packages/*
 !packages/*/
-/testinstall*.img
+/testinstall*.raw
 /testinstall*.efivars
+/ci_data
+/ci_seed.iso
 /*.qcow2
 /*.tar
 .DS_Store
